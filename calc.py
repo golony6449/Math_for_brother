@@ -1,64 +1,65 @@
 #-*- coding: utf-8 -*-
+#encode by cp949
+
 from os import system
 import time
 from random import randint
 
-###í•¨ìˆ˜ì„ ì–¸íŒŒíŠ¸
 def plus(level):
     clear()
     para1,para2=make_Q(level)
     print para1, ' + ',para2,' = ?'
-    answer=int(raw_input('ì •ë‹µ: '))
+    answer=int(raw_input('Á¤´ä: '))
 
     if answer==para1+para2:
-        print 'ì •ë‹µì…ë‹ˆë‹¤.'
+        print 'Á¤´äÀÔ´Ï´Ù.'
         time.sleep(5)
     else:
-        print 'ì˜¤ë‹µì…ë‹ˆë‹¤.'
+        print 'Æ²·È½À´Ï´Ù..'
         time.sleep(5)
 
 def minus(level):
     clear()
     para1,para2=make_Q(level)
     print para1, ' - ',para2,' = ?'
-    answer=int(raw_input('ì •ë‹µ: '))
+    answer=int(raw_input('Á¤´ä: '))
 
     if answer==para1-para2:
-        print 'ì •ë‹µì…ë‹ˆë‹¤.'
+        print 'Á¤´äÀÔ´Ï´Ù.'
         time.sleep(5)
     else:
-        print 'ì˜¤ë‹µì…ë‹ˆë‹¤.'
+        print 'Æ²·È½À´Ï´Ù..'
         time.sleep(5)
 
 def multi(level):
     clear()
     para1,para2=make_Q(level)
     print para1, ' X ',para2,' = ?'
-    answer=int(raw_input('ì •ë‹µ: '))
+    answer=int(raw_input('Á¤´ä: '))
 
     if answer==para1*para2:
-        print 'ì •ë‹µì…ë‹ˆë‹¤.'
+        print 'Á¤´äÀÔ´Ï´Ù.'
         time.sleep(5)
     else:
-        print 'ì˜¤ë‹µì…ë‹ˆë‹¤.'
+        print 'Æ²·È½À´Ï´Ù..'
         time.sleep(5)
 
 def divine(level):
     clear()
     para1,para2=make_Q(level)
     print para1, ' / ',para2,' = ?'
-    answer=int(raw_input('ì •ë‹µ: '))
+    answer=int(raw_input('Á¤´ä: '))
 
     if answer==para1/para2:
-        print 'ì •ë‹µì…ë‹ˆë‹¤.'
+        print 'Á¤´äÀÔ´Ï´Ù.'
         time.sleep(5)
     else:
-        print 'ì˜¤ë‹µì…ë‹ˆë‹¤.'
+        print 'Æ²·È½À´Ï´Ù.'
         time.sleep(5)
 
 def make_Q(level=-1):
     if level==-1:
-        print "ì˜¬ë°”ë¥¸ ë‚œì´ë„ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”."
+        print "¿Ã¹Ù¸£Áö ¾ÊÀº ³­ÀÌµµÀÔ´Ï´Ù."
         return 0
 
     para1=randint(10**level,10**(level+1))
