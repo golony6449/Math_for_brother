@@ -2,10 +2,12 @@
 from os import system
 import time
 from random import randint
+import Tkinter
 
 ###함수선언파트
-def plus(level):
+def plus():
     clear()
+    level=set_level()
     para1,para2=make_Q(level)
     print para1, ' + ',para2,' = ?'
     answer=int(raw_input('정답: '))
@@ -19,6 +21,7 @@ def plus(level):
 
 def minus(level):
     clear()
+    level = set_level()
     para1,para2=make_Q(level)
     print para1, ' - ',para2,' = ?'
     answer=int(raw_input('정답: '))
@@ -32,6 +35,7 @@ def minus(level):
 
 def multi(level):
     clear()
+    level = set_level()
     para1,para2=make_Q(level)
     print para1, ' X ',para2,' = ?'
     answer=int(raw_input('정답: '))
@@ -45,6 +49,7 @@ def multi(level):
 
 def divine(level):
     clear()
+    level = set_level()
     para1,para2=make_Q(level)
     print para1, ' / ',para2,' = ?'
     answer=int(raw_input('정답: '))
@@ -66,4 +71,10 @@ def make_Q(level=-1):
 
     return para1,para2
 def clear():
+
     system('CLS')
+
+def set_level():
+
+    lev = int(raw_input("난이도를 숫자로 입력해주세요.(예를들어 1)"))
+    return lev
