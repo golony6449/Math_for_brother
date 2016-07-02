@@ -23,8 +23,9 @@ text=Tkinter.Label(up_frame,text='귀찮고 힘들어도 힘내서 10문제만 �
 text.pack()
 
 plus_button=Tkinter.Button(bottom_frame,text='덧셈',command=calc.plus).pack(side='left')
-minus_button=Tkinter.Button(bottom_frame,text='뺄셈').pack(side='left')
-multi_button=Tkinter.Button(bottom_frame,text='곱셈').pack(side='left')
-devine_button=Tkinter.Button(bottom_frame,text='나눗셈').pack(side='left')
+minus_button=Tkinter.Button(bottom_frame,text='뺄셈',command=calc.minus).pack(side='left')
+multi_button=Tkinter.Button(bottom_frame,text='곱셈',command=calc.multi).pack(side='left')
+divine_button=Tkinter.Button(bottom_frame,text='나눗셈',command=calc.divine).pack(side='left')
+
 
 gui.mainloop()
