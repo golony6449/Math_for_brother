@@ -8,8 +8,11 @@ import Tkinter
 class CALC(object):
 
     def __init__(self):
+        self.initial_set(textlabel='난이도를 입력해주세요. (1~)', answertext='난이도: ')
+
+    def initial_set(self,title='수학문제연습',textlabel='생성중...',answertext='',buttontext='확인'):
         self.gui = Tkinter.Tk()
-        self.gui.title('수학 문제 연습')
+        self.gui.title(title)
         self.up_frame = Tkinter.Frame(self.gui)
         self.up_frame.pack(side='top')
         self.bottom_frame = Tkinter.Frame(self.gui)
@@ -17,32 +20,44 @@ class CALC(object):
 
         #문제 부분
         self.level = 0
-        self.textvar = Tkinter.StringVar().set('생성중')
-        self.text = Tkinter.Label(self.up_frame, textvariable=self.textvar)
+        self.textlabel = Tkinter.StringVar()
+        self.textlabel.set(textlabel)
+        self.text = Tkinter.Label(self.up_frame, textvariable=self.textlabel)
         self.text.pack()
 
         #정답부분
+        self.answertext=Tkinter.StringVar()
+        self.answertext.set(answertext)
+        self.buttontext=Tkinter.StringVar()
+        self.buttontext.set(buttontext)
+
+        self.answerlabel=Tkinter.Label(self.bottom_frame,textvariable=self.answertext)
+        self.answerlabel.pack(side='left')
         self.answer=Tkinter.Entry(self.bottom_frame)
         self.answer.pack(side='left')
-        self.ans_button=Tkinter.Button(self.bottom_frame,text='정답!',command=self.chk)
+        self.ans_button=Tkinter.Button(self.bottom_frame,textvariable=self.buttontext,command=self.set_lev)
         self.ans_button.pack(side='left')
 
-    def chk(self):
-        level=int(self.answer.get())
-        print '레벨:',level
-        self.make_Q(level)
+    def set_lev(self):
+        level=self.get()
+        self.gui.destroy()
+
+    def get(self):
+        input=int(self.answer.get())
+        return input
 
     def make_Q(self,level):
+        print '실행!'
         para1 = randint(10 ** level, 10 ** (level + 1))
         para2 = randint(10 ** level, 10 ** (level + 1))
         question = str(para1) + ' + ' + str(para2) +' = ?'
-        textvar=question
+        self.textlabel.set(question)
+
+    def return_para(self,level=0):
+        if level==1:
+            return self.level
 
 ###함수선언파트
-def plus():
-    clear()
-    process=CALC()
-
 def minus(level):
     clear()
     level = set_level()
@@ -108,3 +123,4 @@ def set_level():
 
     lev = int(raw_input("난이도를 숫자로 입력해주세요.(예를들어 1)"))
     return lev
+
