@@ -13,6 +13,7 @@ import Tkinter
 def plus():
     gui.destroy()
     process=CALC()
+    process.start()
 def minus():
     gui.destroy()
     calc.minus()

@@ -8,9 +8,16 @@ import Tkinter
 class CALC(object):
 
     def __init__(self):
-        self.initial_set(textlabel='난이도를 입력해주세요. (1~)', answertext='난이도: ')
+        self.initial_set(textlabel='난이도를 입력해주세요. (1~)', answertext='난이도: ',para=1)
 
-    def initial_set(self,title='수학문제연습',textlabel='생성중...',answertext='',buttontext='확인'):
+    def start(self):
+        print self.level
+        self.initial_set(answertext='정답 :')
+        q=self.make_Q(self.level)
+        self.set(q)
+
+
+    def initial_set(self,title='수학문제연습',textlabel='생성중...',answertext='',buttontext='확인',para=0):
         self.gui = Tkinter.Tk()
         self.gui.title(title)
         self.up_frame = Tkinter.Frame(self.gui)
@@ -26,6 +33,7 @@ class CALC(object):
         self.text.pack()
 
         #정답부분
+        self.input=0
         self.answertext=Tkinter.StringVar()
         self.answertext.set(answertext)
         self.buttontext=Tkinter.StringVar()
@@ -35,23 +43,30 @@ class CALC(object):
         self.answerlabel.pack(side='left')
         self.answer=Tkinter.Entry(self.bottom_frame)
         self.answer.pack(side='left')
-        self.ans_button=Tkinter.Button(self.bottom_frame,textvariable=self.buttontext,command=self.set_lev)
+        if para==1:
+            self.ans_button = Tkinter.Button(self.bottom_frame, textvariable=self.buttontext, command=self.set_lev)
+        else:
+            self.ans_button=Tkinter.Button(self.bottom_frame,textvariable=self.buttontext,command=self.get)
         self.ans_button.pack(side='left')
 
+        self.gui.mainloop()
+
     def set_lev(self):
-        level=self.get()
+        self.level=self.get()
         self.gui.destroy()
 
     def get(self):
-        input=int(self.answer.get())
-        return input
+        self.input=int(self.answer.get())
 
     def make_Q(self,level):
-        print '실행!'
+        print 'make_Q 실행!'
         para1 = randint(10 ** level, 10 ** (level + 1))
         para2 = randint(10 ** level, 10 ** (level + 1))
         question = str(para1) + ' + ' + str(para2) +' = ?'
-        self.textlabel.set(question)
+        return question
+
+    def set(self,para):
+        self.textlabel.set('test')
 
     def return_para(self,level=0):
         if level==1:
