@@ -7,7 +7,8 @@ import Tkinter
 ###CLASS 정의
 class CALC(object):
 
-    def __init__(self):
+    def __init__(self,cat):
+        self.category=cat
         self.initial_set(textlabel='난이도를 입력해주세요. (1~)', answertext='난이도: ',para=1)
         self.gui.mainloop()
 
@@ -64,14 +65,31 @@ class CALC(object):
 
 #일단 + 기준 개발(추후수정요망)
     def make_Q(self):
-        print 'make_Q 실행!'
+        indicator=self.category
+        #print 'make_Q 실행!'
         print self.level
         para1 = randint(10 ** self.level, 10 ** (self.level + 1))
         para2 = randint(10 ** self.level, 10 ** (self.level + 1))
-        question = str(para1) + ' + ' + str(para2) +' = ?'
-        self.ans=para1+para2
-        self.set(question)
-        return question
+        if indicator==1:
+            question = str(para1) + ' + ' + str(para2) +' = ?'
+            self.ans=para1+para2
+            self.set(question)
+            return question
+        elif indicator==2:
+            question = str(para1) + ' - ' + str(para2) +' = ?'
+            self.ans=para1+para2
+            self.set(question)
+            return question
+        elif indicator==3:
+            question = str(para1) + ' X ' + str(para2) +' = ?'
+            self.ans=para1+para2
+            self.set(question)
+            return question
+        elif indicator==4:
+            question = str(para1) + ' ÷ ' + str(para2) +' = ?'
+            self.ans=para1+para2
+            self.set(question)
+            return question
 
     def set(self,para):
         self.textlabel.set(para)
@@ -79,71 +97,3 @@ class CALC(object):
     def return_para(self,level=0):
         if level==1:
             return self.level
-
-###함수선언파트
-def minus(level):
-    clear()
-    level = set_level()
-    para1,para2=make_Q(level)
-    print para1, ' - ',para2,' = ?'
-    answer=int(raw_input('정답: '))
-
-    if answer==para1-para2:
-        print '정답입니다.'
-        time.sleep(5)
-    else:
-        print '오답입니다.'
-        time.sleep(5)
-
-def multi(level):
-    clear()
-    level = set_level()
-    para1,para2=make_Q(level)
-    print para1, ' X ',para2,' = ?'
-    answer=int(raw_input('정답: '))
-
-    if answer==para1*para2:
-        print '정답입니다.'
-        time.sleep(5)
-    else:
-        print '오답입니다.'
-        time.sleep(5)
-
-def divine(level):
-    clear()
-    level = set_level()
-    para1,para2=make_Q(level)
-    print para1, ' / ',para2,' = ?'
-    answer=int(raw_input('정답: '))
-
-    if answer==para1/para2:
-        print '정답입니다.'
-        time.sleep(5)
-    else:
-        print '오답입니다.'
-        time.sleep(5)
-
-def make_Q(level=-1):
-    if level==-1:
-        print "올바른 난이도를 입력해주세요."
-        return 0
-
-    para1=randint(10**level,10**(level+1))
-    para2=randint(10**level,10**(level+1))
-
-    return para1,para2
-def clear():
-
-    system('CLS')
-
-def set_level():
-    gui = Tkinter.Tk()
-    gui.title('난이도')
-    up_frame = Tkinter.Frame(gui)
-    up_frame.pack(side='top')
-    bottom_frame = Tkinter.Frame(gui)
-    bottom_frame.pack(side='bottom')
-
-    lev = int(raw_input("난이도를 숫자로 입력해주세요.(예를들어 1)"))
-    return lev
-

@@ -12,17 +12,20 @@ import Tkinter
 
 def plus():
     gui.destroy()
-    process=CALC()
+    process=CALC(1)
     process.start()
 def minus():
     gui.destroy()
-    calc.minus()
+    process=CALC(2)
+    process.start()
 def multi():
     gui.destroy()
-    calc.multi()
+    process=CALC(3)
+    process.start()
 def divine():
     gui.destroy()
-    calc.divine()
+    process=CALC(4)
+    process.start()
 
 gui=Tkinter.Tk()
 gui.title('수학 문제 연습')
