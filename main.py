@@ -27,6 +27,7 @@ def divine():
     process=CALC(4)
     process.start()
 
+#Gernerate Tkinter window
 gui=Tkinter.Tk()
 gui.title('수학 문제 연습')
 up_frame=Tkinter.Frame(gui)
