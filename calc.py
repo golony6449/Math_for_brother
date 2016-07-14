@@ -11,6 +11,7 @@ class CALC(object):
 ##코드 재사용을 위해 init 중 상당수를 별도 함수로 분리
 #For re-use code in __init__, move code to other fuction(initial_set)
     def __init__(self,cat):
+        self.count=1
         self.category=cat
         self.initial_set(textlabel='난이도를 입력해주세요. (1~)', answertext='난이도: ',para=1)
         self.gui.mainloop()
@@ -37,7 +38,7 @@ class CALC(object):
         #문제 부분
         self.textlabel = Tkinter.StringVar()
         self.textlabel.set(textlabel)
-        self.text = Tkinter.Label(self.up_frame, textvariable=self.textlabel)
+        self.text = Tkinter.Label(self.up_frame, textvariable=self.textlabel,font=(15))
         self.text.pack()
 
         #정답부분
@@ -63,10 +64,13 @@ class CALC(object):
 # execute 'get from Entry widget, Compare with answer and regenerate new quesion when the answer is corrent'
     def chk(self):
         self.get()
+        self.recode_report()
         if self.input==self.ans:
             # test code
-            print '성공'
+            #print '성공'
             self.make_Q()
+        else:
+            self.wrong_answer()
 
 ##initial_set 함수가 초기설정상태일때(para==1) 실행되어 난이도를 설정함
 #Set the level when the fuction 'initial_set' is initialize mode
@@ -84,31 +88,77 @@ class CALC(object):
     def make_Q(self):
         indicator=self.category
         #print 'make_Q 실행!'
-        print self.level
-        para1 = randint(10 ** self.level, 10 ** (self.level + 1))
-        para2 = randint(10 ** self.level, 10 ** (self.level + 1))
+        #print self.level
         if indicator==1:
-            question = str(para1) + ' + ' + str(para2) +' = ?'
+            para1 = randint(10 ** self.level, 10 ** (self.level + 1))
+            para2 = randint(10 ** self.level, 10 ** (self.level + 1))
+            self.question = str(self.count)+': '+str(para1) + ' + ' + str(para2) +' = ?'
             self.ans=para1+para2
-            self.set(question)
-            return question
+            self.set(self.question)
+            self.count += 1
+            return self.question
         elif indicator==2:
-            question = str(para1) + ' - ' + str(para2) +' = ?'
-            self.ans=para1+para2
-            self.set(question)
-            return question
+            para1 = randint(10 ** self.level, 10 ** (self.level + 1))
+            para2 = randint(10 ** self.level, para1)
+            self.question = str(self.count)+': '+str(para1) + ' - ' + str(para2) +' = ?'
+            self.ans=para1-para2
+            self.set(self.question)
+            self.count += 1
+            return self.question
         elif indicator==3:
-            question = str(para1) + ' X ' + str(para2) +' = ?'
-            self.ans=para1+para2
+            para1 = randint(10 ** self.level, 10 ** (self.level + 1))
+            #임시 난이도조절
+            # para2 = randint(10 ** self.level, 10 ** (self.level + 1))
+            para2=randint(1,10)
+            question = str(self.count)+': '+str(para1) + ' X ' + str(para2) +' = ?'
+            self.ans=para1*para2
             self.set(question)
+            self.count += 1
             return question
         elif indicator==4:
-            question = str(para1) + ' ÷ ' + str(para2) +' = ?'
-            self.ans=para1+para2
+            para1 = randint(10 ** (self.level-1), 10 ** (self.level))
+            para2 = randint(5, 10*self.level)
+            #난이도 조절
+            # para1 = randint(10 ** self.level, 10 ** (self.level + 1))
+            # para2 = randint(5, 10 * self.level)
+            para1*=para2
+            question = str(self.count)+': '+str(para1) + ' ÷ ' + str(para2) +' = ?'
+            self.ans=para1/para2
             self.set(question)
+            self.count+=1
             return question
+
 
 #GUI 중 내용부분을 매개변수(para)로 변경
 #Change question part in GUI with 'para'
     def set(self,para):
         self.textlabel.set(para)
+
+    def wrong_answer(self):
+        wrong=Tkinter.Tk()
+        attention=Tkinter.Label(wrong,text='오답입니다. 다시 풀어보세요.',font=(10))
+        attention.pack()
+        # button=Tkinter.Button(wrong,text='확인',command=)
+        # button.pack()
+        wrong.mainloop()
+
+#보고서 작성
+#Make report
+    def recode_report(self):
+        save_string=''
+        report=open('report.txt','a')
+
+        save_string=str(self.count)
+        report.write(save_string)
+
+        save_string='난이도: '+str(self.level)
+        report.write(save_string)
+
+        save_string=' 문제: '+str(self.question)
+        report.write(save_string)
+
+        save_string=' 정답: '+str(self.ans)
+        report.write(save_string)
+
+        save_string=' 입력값: '+str(self.input)+'\n'
+        report.write(save_string)

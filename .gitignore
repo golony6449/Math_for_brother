@@ -139,3 +139,5 @@ $RECYCLE.BIN/
 *.lnk
 *.iml
 *.xml
+report.txt
+setup.py
