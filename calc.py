@@ -64,12 +64,13 @@ class CALC(object):
 # execute 'get from Entry widget, Compare with answer and regenerate new quesion when the answer is corrent'
     def chk(self):
         self.get()
-        self.recode_report()
         if self.input==self.ans:
             # test code
             #print '성공'
+            self.recode_report(True)
             self.make_Q()
         else:
+            self.recode_report(False)
             self.wrong_answer()
 
 ##initial_set 함수가 초기설정상태일때(para==1) 실행되어 난이도를 설정함
@@ -143,15 +144,29 @@ class CALC(object):
         wrong.mainloop()
 
 #보고서 작성
-#Make report
-    def recode_report(self):
+#Make report When the answer button is pressed
+    def recode_report(self,correct):
+        #calculate correct percentage
+        try:
+            self.enter_times+=1
+        except:
+            self.enter_times=1
+        if correct==True:
+            try:
+                self.correct_times+=1
+            except:
+                self.correct_times=1
+
+        percentage=100*self.correct_times/self.enter_times
+
+        #MAKE and SAVE report
         save_string=''
         report=open('report.txt','a')
 
         save_string=str(self.count)
         report.write(save_string)
 
-        save_string='난이도: '+str(self.level)
+        save_string=' 난이도: '+str(self.level)
         report.write(save_string)
 
         save_string=' 문제: '+str(self.question)
@@ -160,5 +175,8 @@ class CALC(object):
         save_string=' 정답: '+str(self.ans)
         report.write(save_string)
 
-        save_string=' 입력값: '+str(self.input)+'\n'
+        save_string=' 입력값: '+str(self.input)
+        report.write(save_string)
+
+        save_string=' 정답률: '+str(percentage)+'\n'
         report.write(save_string)
