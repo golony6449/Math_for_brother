@@ -11,7 +11,7 @@ class CALC(object):
 ##코드 재사용을 위해 init 중 상당수를 별도 함수로 분리
 #For re-use code in __init__, move code to other fuction(initial_set)
     def __init__(self,cat):
-        self.count=1
+        self.count=0
         self.category=cat
         self.initial_set(textlabel='난이도를 입력해주세요. (1~)', answertext='난이도: ',para=1)
         self.gui.mainloop()
@@ -91,22 +91,23 @@ class CALC(object):
         #print 'make_Q 실행!'
         #print self.level
         if indicator==1:
+            self.count += 1
             para1 = randint(10 ** self.level, 10 ** (self.level + 1))
             para2 = randint(10 ** self.level, 10 ** (self.level + 1))
             self.question = str(self.count)+': '+str(para1) + ' + ' + str(para2) +' = ?'
             self.ans=para1+para2
             self.set(self.question)
-            self.count += 1
             return self.question
         elif indicator==2:
+            self.count += 1
             para1 = randint(10 ** self.level, 10 ** (self.level + 1))
             para2 = randint(10 ** self.level, para1)
             self.question = str(self.count)+': '+str(para1) + ' - ' + str(para2) +' = ?'
             self.ans=para1-para2
             self.set(self.question)
-            self.count += 1
             return self.question
         elif indicator==3:
+            self.count += 1
             para1 = randint(10 ** self.level, 10 ** (self.level + 1))
             #임시 난이도조절
             # para2 = randint(10 ** self.level, 10 ** (self.level + 1))
@@ -114,9 +115,9 @@ class CALC(object):
             question = str(self.count)+': '+str(para1) + ' X ' + str(para2) +' = ?'
             self.ans=para1*para2
             self.set(question)
-            self.count += 1
             return question
         elif indicator==4:
+            self.count += 1
             para1 = randint(10 ** (self.level-1), 10 ** (self.level))
             para2 = randint(5, 10*self.level)
             #난이도 조절
@@ -126,7 +127,6 @@ class CALC(object):
             question = str(self.count)+': '+str(para1) + ' ÷ ' + str(para2) +' = ?'
             self.ans=para1/para2
             self.set(question)
-            self.count+=1
             return question
 
 
@@ -151,11 +151,11 @@ class CALC(object):
             self.enter_times+=1
         except:
             self.enter_times=1
+
+        self.correct_times=0
         if correct==True:
-            try:
-                self.correct_times+=1
-            except:
-                self.correct_times=1
+            self.correct_times+=1
+
 
         percentage=100*self.correct_times/self.enter_times
 
