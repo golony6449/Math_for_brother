@@ -53,7 +53,7 @@ class CALC(object):
         self.answer=Tkinter.Entry(self.bottom_frame)
         self.answer.pack(side='left')
         if para==1:
-            print 'level set'
+            #print 'level set'
             self.ans_button = Tkinter.Button(self.bottom_frame, textvariable=self.buttontext, command=self.set_lev)
         else:
             self.ans_button=Tkinter.Button(self.bottom_frame,textvariable=self.buttontext,command=self.chk)
@@ -152,9 +152,11 @@ class CALC(object):
         except:
             self.enter_times=1
 
-        self.correct_times=0
-        if correct==True:
-            self.correct_times+=1
+            if correct==True:
+                try:
+                    self.correct_times+=1
+                except:
+                    self.correct_times = 1
 
 
         percentage=100*self.correct_times/self.enter_times
