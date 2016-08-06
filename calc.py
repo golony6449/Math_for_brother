@@ -152,12 +152,16 @@ class CALC(object):
         except:
             self.enter_times=1
 
-            if correct==True:
-                try:
-                    self.correct_times+=1
-                except:
-                    self.correct_times = 1
-
+        if correct==True:
+            try:
+                self.correct_times+=1
+            except:
+                self.correct_times = 1
+        else:
+            try:
+                self.correct_times
+            except:
+                self.correct_times=0
 
         percentage=100*self.correct_times/self.enter_times
 
