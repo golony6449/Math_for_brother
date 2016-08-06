@@ -68,6 +68,7 @@ class CALC(object):
             # test code
             #print '성공'
             self.recode_report(True)
+            self.answer.delete(0,'end')
             self.make_Q()
         else:
             self.recode_report(False)
